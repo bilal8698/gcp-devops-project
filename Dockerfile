@@ -1,11 +1,12 @@
-# Use an official Python image
-FROM python:3.10-slim
+# syntax=docker/dockerfile:1
 
-# Set working directory
-WORKDIR /app
+FROM python:3.8-slim-buster
 
-# Create a simple Python app
-COPY app.py .
+WORKDIR /python-docker
 
-# Run the app
-CMD ["python", "app.py"]
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
